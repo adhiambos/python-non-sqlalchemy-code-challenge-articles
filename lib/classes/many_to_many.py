@@ -45,8 +45,31 @@ class Article:
 
         
 class Author:
+    all = []
     def __init__(self, name):
-        self.name = name
+        self._name = name
+        Author.all.append(self)
+        @property
+        def name(self):
+            return self._name
+        @name.setter
+        def name(self, new_names):
+            self.new_name = new_names
+            return self._name
+        # getting articles written by the author
+        def articles(self):
+            return [articles for articles in Article.all if articles.author == self]
+        # adding articles for the author
+        def add_article(self, magazine, title):
+            article = Article(self, magazine, title)
+            return article
+        # getting magazines the author has contributed to
+        def magazines(self):
+            return [magazine for magazine in Magazine.all if magazine in self.articles()]
+        # getting topic areas for all articles by author
+        def topic_areas(self):
+            return [article.magazine.category for article in self.articles()]
+            
 
     def articles(self):
         pass
