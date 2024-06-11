@@ -12,7 +12,13 @@ class Article:
             return self._title
         
         # title attribute setter method
-        
+        @title.setter
+        def title(self, title):
+            if hasattr(self, 'title'):AttributeError('title cannot be changed')
+            if len(title) < 5 or len(title) > 50:
+                raise Exception("title must be between 5 and 50 characters inclusive")
+            self._title = str(title)
+
 
 
         
