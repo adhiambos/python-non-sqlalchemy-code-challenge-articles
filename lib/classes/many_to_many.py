@@ -55,36 +55,31 @@ class Author:
         @name.setter
         def name(self, new_names):
             self.new_name = new_names
-            return self._name
-        # getting articles written by the author
-        def articles(self):
-            return [articles for articles in Article.all if articles.author == self]
-        # adding articles for the author
-        def add_article(self, magazine, title):
-            article = Article(self, magazine, title)
-            return article
-        # getting magazines the author has contributed to
-        def magazines(self):
-            return [magazine for magazine in Magazine.all if magazine in self.articles()]
-        # getting topic areas for all articles by author
-        def topic_areas(self):
-            return [article.magazine.category for article in self.articles()]
-        @staticmethod
-        def list_authors():
-            return [author.name for author in Author.all]
-            
+            return self._name    
 
+    # getting articles written by the author
     def articles(self):
-        pass
+        return [articles for articles in Article.all if articles.author == self]
 
+    # getting magazines the author has contributed to
     def magazines(self):
-        pass
+        return list(set([article.magazine for article in self.articles()]))
 
+    # adding articles for the author
     def add_article(self, magazine, title):
-        pass
+        articles = Article(self, magazine, title)
+        return articles
 
+
+    # getting topic areas for all articles by author
     def topic_areas(self):
-        pass
+        return list(set([article.magazine.category for article in self.articles()])) if self.articles() else None
+    
+    @staticmethod
+    def list_authors():
+        return [author.name for author in Author.all]
+        
+
 
 class Magazine:
     def __init__(self, name, category):
