@@ -69,6 +69,9 @@ class Author:
         # getting topic areas for all articles by author
         def topic_areas(self):
             return [article.magazine.category for article in self.articles()]
+        @staticmethod
+        def list_authors():
+            return [author.name for author in Author.all]
             
 
     def articles(self):
